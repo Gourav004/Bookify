@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Atomic Habits",
+    "price": 450,
+    "category": "Self-Help",
+    "title": "An Easy & Proven Way to Build Good Habits & Break Bad Ones",
+    "image": "https://example.com/images/atomic-habits.jpg"
+  },
+  {
+    "name": "The Alchemist",
+    "price": 300,
+    "category": "Fiction",
+    "title": "A Fable About Following Your Dream",
+    "image": "https://example.com/images/the-alchemist.jpg"
+  },
+  {
+    "name": "Clean Code",
+    "price": 650,
+    "category": "Programming",
+    "title": "A Handbook of Agile Software Craftsmanship",
+    "image": "https://example.com/images/clean-code.jpg"
+  }
+]

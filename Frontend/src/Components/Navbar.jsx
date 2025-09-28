@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Login from "./Login";
+import { useAuth } from "../Context/AuthProvider.jsx";
+import Logout from "./Logout.jsx";
 
 function Navbar() {
   const [sticky, setSticky] = useState(false);
+  const [authUser, setAuthUser] = useAuth();
+
+  console.log(authUser);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +47,10 @@ function Navbar() {
         </a>
       </li>
       <li>
-        <a className="px-3 py-2 rounded-md hover:bg-slate-700 transition">
+        <a
+          href="/about"
+          className="px-3 py-2 rounded-md hover:bg-slate-700 transition"
+        >
           About
         </a>
       </li>
@@ -150,7 +158,7 @@ function Navbar() {
 
             {/* Login button */}
 
-            <Login />
+            {authUser ? <Logout /> : <Login />}
           </div>
         </div>
       </div>

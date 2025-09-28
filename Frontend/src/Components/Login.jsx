@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { Navigate } from "react-router";
 
 function Login() {
   const [isSignUp, setSignUp] = useState(false);
@@ -22,7 +25,57 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSignin = () => {
+    const userInfo = { name: userName, email: userEmail, password: userPass };
+    axios
+      .post("http://localhost:4001/user/signup", userInfo)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          toast.success("Signed in successfully");
+
+          // 1. Store user in localStorage
+          localStorage.setItem("Users", JSON.stringify(res.data));
+
+          // 2. Close modal
+          document.getElementById("my_modal_3").close();
+          window.location.reload();
+          // 3. Navigate to /courses
+          <Navigate to="/courses" />;
+        }
+      })
+      .catch((err) => {
+        console.log("Error occured", err);
+        toast.error("Something went wrong");
+      });
+  };
+
+  const onLogin = () => {
+    const userInfo = { email: userEmail, password: userPass };
+    axios
+      .post("http://localhost:4001/user/login", userInfo)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          toast.success("Logged in successfully");
+
+          // 1. Store user
+          localStorage.setItem("Users", JSON.stringify(res.data.user));
+
+          // 2. Close modal
+          document.getElementById("my_modal_3").close();
+          window.location.reload();
+
+          // 3. Navigate
+          <Navigate to="/courses" />;
+        }
+      })
+      .catch((err) => {
+        console.log("Error occured", err);
+        toast.error("Something went wrong");
+      });
+  };
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -42,11 +95,6 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // console.log({
-    //   name: userName,
-    //   email: userEmail,
-    //   password: userPass,
-    // });
 
     // validation: check required fields (name only for signup)
     if (
@@ -63,7 +111,7 @@ function Login() {
     }
 
     // proceed — for demo just log
-    console.log("Submitting:", { userName, userEmail, userPass, isSignUp });
+    console.log("Submitting:", { userName, userEmail, userPass });
     // reset or close modal as needed
   };
 
@@ -197,6 +245,7 @@ function Login() {
 
             <button
               type="submit"
+              onClick={isSignUp ? onSignin : onLogin}
               className="w-full py-2 mt-2 rounded-md bg-pink-600 text-white font-medium hover:bg-pink-700 transition focus:outline-none"
             >
               {isSignUp ? "Sign Up" : "Login"}
