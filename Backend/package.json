@@ -4,11 +4,11 @@
   "description": "Mern Project",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "dev": "nodemon backend/index.js",
-    "build" : "npm install & npm install --prefix frontend && npm run build --prefix frontend",
-    "start" : "node backend/index.js"
-  },
+"scripts": {
+  "dev": "nodemon backend/index.js",
+  "build": "npm install --prefix frontend && npm run build --prefix frontend",
+  "start": "node backend/index.js"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Gourav004/Bookify.git"
